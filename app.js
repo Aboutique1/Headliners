@@ -1,10 +1,12 @@
 var express = require("express");
-var expressHandlebars = require("express-handlebars");
+var exphbs = require("express-handlebars");
 var app = express();
 app.engine('handlebars',exphbs());
 
 app.set('view engine','handlebars');
 
-app.get('/',function(req,res){res.sender('home')});
+app.get('/',function(req,res){res.render('home')});
 
-app.listen(3000);
+app.listen(3005,function(){
+    console.log("I'm sleepy and hungry");
+});
