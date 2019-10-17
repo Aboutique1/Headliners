@@ -10,17 +10,20 @@ app.engine('handlebars',exphbs());
 app.set('view engine','handlebars');
 
 app.get('/',function(req,res){
-  axios.get('https://www.nastygal.com')
+  axios.get('https://news.ycombinator.com')
       .then((response) => {
+        const html = response.data;
+     const $ = cheerio.load(hmtl);
+     console.log($);
 
-        console.log(response)
+        console.log(response.data)
       })  
     
     res.render('home',{title:"Headliners"})
 
 });
 
-app.listen(3005,function(){
+app.listen(3006,function(){
     console.log("I'm sleepy and hungry");
 });
 
