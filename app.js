@@ -11,23 +11,28 @@ app.set('view engine','handlebars');
 
 app.get('/',function(req,res){
   let datas=[];
-  axios.get('https://www.nytimes.com/section/us')
+  axios.get('https://news.ycombinator.com/')
       .then((response) => {
         const html = response.data;
-        const $ = cheerio.load(hmtl);
-        $('#latest-panel article.story.theme-summary').each((i, element) => { 
+        const $ = cheerio.load(html);
+        
+        $("table.itemlist tr td:nth-child(3)").each((i,elem) => {
+          // open javascript console and look for "elements". picked out elements I need to scrape with
+          // cheerio which works like jquery
+          const title = $(elem).text();
+          const link = $(elem).find("a.storylink").attr("href");
 
-          var storyURL =$(element).find('.story-body>.story-link').attr('href)');
-          
-          var summary =$(element).find('summary').text().trim();
-
-          var headline =$(element).find('h2.headline').text().trim();
-
-          var data = {storyURL,summary,headline};
-
-          datas.push(data)
-
+          // bundle data and link into a data object
+          let data = {
+            title,
+            link
+          }
+          // push to our collection datas, the array on line 20
+          datas.push(data);
       });
+
+      
+      
           
         console.log(datas);
       
