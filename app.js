@@ -11,13 +11,27 @@ app.set('view engine','handlebars');
 
 app.get('/',function(req,res){
   let datas=[];
-  axios.get('https://news.ycombinator.com')
+  axios.get('https://www.nytimes.com/section/us')
       .then((response) => {
         const html = response.data;
         const $ = cheerio.load(hmtl);
+        $('#latest-panel article.story.theme-summary').each((i, element) => { 
 
-        console.log(response.data)
-      })  
+          var storyURL =$(element).find('.story-body>.story-link').attr('href)');
+          
+          var summary =$(element).find('summary').text().trim();
+
+          var headline =$(element).find('h2.headline').text().trim();
+
+          var data = {storyURL,summary,headline};
+
+          datas.push(data)
+
+      });
+          
+        console.log(datas);
+      
+        })  
     
     res.render('home',{title:"Headliners"})
 
