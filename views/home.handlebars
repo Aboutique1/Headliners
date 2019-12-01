@@ -1,2 +1,21 @@
-<h1>{{title}}</h1>
-
+<div style="
+    margin: 0 auto;
+    width: 100px;
+">
+    <h1>{{title}}</h1>
+</div>
+<p>Articles</p>
+<div style="">
+    {{#each data}}
+    <div class="card">
+        <div class="linkContainer">
+            <a  class="link" href={{link}} target="_blank">
+                <h4>{{articleTitle}}</h4>
+            </a>
+        </div>
+        <div class="imageContainer">
+            <img srcset={{image}} alt={{imageAlt}} class="cardImage" />
+        </div>
+    </div>
+    {{/each}}
+</div>
