@@ -43,6 +43,8 @@ app.get('/', function (req, res) {
     })
 });
 
-app.listen(3006, function () {
+const PORT = process.env.PORT || 3006;
+
+app.listen(PORT, function () {
   console.log("Merry Christmas");
 });
